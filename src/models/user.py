@@ -21,5 +21,7 @@ class User(Base):
         "UserTalk",
         back_populates="user"
     )
+    
+    messages = relationship("Message", back_populates="userMessage")
 
 

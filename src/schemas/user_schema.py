@@ -5,8 +5,8 @@ class CreateUser(BaseModel):
     username: str
     email: str
     password: str
-    description: Optional[str]
-    url_photo: Optional[str]
+    description: Optional[str] = None
+    url_photo: Optional[str] = None
 
 
 class ResponseUser(BaseModel):

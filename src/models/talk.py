@@ -11,10 +11,10 @@ class Talk(Base):
     create_time = Column(BigInteger)
     timestamp = Column(BigInteger)
     url = Column(String)
-    content = Column(String)
-    type = Column(Integer)
-
+    
     user = relationship(
         "UserTalk",
         back_populates="talk"
     )
+
+    messages = relationship("Message", back_populates="talkMessage")

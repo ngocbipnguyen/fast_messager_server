@@ -4,7 +4,7 @@ from src.schemas.talk_schema import CreateTalk
 class CreateUserTalk(BaseModel):
     user_uuid: str
     talk_id: str
-    timestamp = Optional[int]
-    uuids: List[str]
+    timestamp : Optional[int]
+    uuids: List[str] 
     talk: CreateTalk
 
