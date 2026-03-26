@@ -22,6 +22,9 @@ class LoginService:
         access_token = create_access_token(
             data={"sub": user.email}, expires_delta=access_token_expires
         )
+        user.token = access_token
+        self.db.commit()
+        self.db.refresh(user)
         return ResponseLogin(uuid=user.uuid, email= user.email, access_token=access_token)
 
 
