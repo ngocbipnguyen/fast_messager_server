@@ -8,3 +8,9 @@ class CreateUserTalk(BaseModel):
     uuids: List[str] 
     talk: CreateTalk
 
+
+class ResponseUserTalk(BaseModel):
+    id: str
+    user_uuid : str
+    talk_id : str
+

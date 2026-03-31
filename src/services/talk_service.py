@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 from src.models.talk import Talk
 from src.models.user_talk import UserTalk
-from src.schemas.talk_schema import CreateTalk, ResponseTalk, UpdateTalk
-from src.schemas.user_talk_schema import CreateUserTalk
+from src.schemas.talk_schema import CreateTalk, ResponseTalk, UpdateTalk, CreateTalks
 import time
 
 class TalkService:
@@ -10,9 +9,14 @@ class TalkService:
         self.db = db
 
 
-    async def create_user_talk(self, userTalk: CreateUserTalk):
-        talk = self.create_talk(userTalk.talk)
-        for uuid in userTalk.uuids:
+    async def create_talks(self, create_talks: CreateTalks)-> ResponseTalk:
+        new_talk = CreateTalk(
+            title=create_talks.title,
+            description=create_talks.description,
+            url=create_talks.url
+        )
+        talk = self.create_talk(new_talk)
+        for uuid in create_talks.uuids:
             new_user_talk = UserTalk(user_uuid = uuid, talk_id = talk.id)
             self.db.add(new_user_talk)
             self.db.commit()
@@ -25,8 +29,6 @@ class TalkService:
             create_time=talk.create_time,
             timestamp=talk.timestamp
         )
-
-
 
     def create_talk(self, talk_data: CreateTalk) -> ResponseTalk:
         new_talk = Talk(
