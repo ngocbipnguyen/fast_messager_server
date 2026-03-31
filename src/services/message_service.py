@@ -42,6 +42,22 @@ class MessageService:
             ) for message in messages
         ]
     
+
+    def getMessagesByUser(self,user_id: str, skip: int = 0, limit: int = 50):
+        messages = self.db.query(Message).filter(Message.from_user == user_id).offset(skip).limit(limit).all()
+        return [
+            ResponseMessage(
+                id =  message.id,
+                content = message.content,
+                type =  message.type,
+                motion= message.motion,
+                timestamp= message.timestamp,
+                from_user= message.from_user,
+                from_talk= message.from_talk
+            ) for message in messages
+        ]
+
+    
     def updateMessage(self, data: UpdateMessage):
         message = self.db.query(Message).filter(Message.id == data.id).first()
         if message: 

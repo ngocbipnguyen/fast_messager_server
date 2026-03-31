@@ -7,6 +7,12 @@ class CreateMessage(BaseModel):
     from_user : str
     from_talk : str
 
+class MessageParams(BaseModel):
+    from_talk : str = None
+    from_user : str = None
+    limit : int = 50
+    skip : int = 0
+
 class ResponseMessage(BaseModel):
     id : str
     content : str
